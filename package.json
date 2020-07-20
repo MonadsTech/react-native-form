@@ -2,7 +2,38 @@
   "name": "@monadstech/react-native-form",
   "version": "0.0.1",
   "description": "React Native Form Library",
-  "main": "index.js",
+  "keywords": [
+    "React Native",
+    "React Native Form",
+    "Form",
+    "react-native-form",
+    "rn-form",
+    "monads"
+  ],
+  "main": "./dist/index.js",
   "license": "MIT",
-  "private": false
+  "private": false,
+  "author": {
+    "name": "Pankaj Vaghela",
+    "email": "vpankaj1998official@gmail.com"
+  },
+  "scripts": {
+    "build": "rimraf ./dist && tsc",
+    "prepublish": "yarn build"
+  },
+  "dependencies": {
+    "rc-form": "^2.4.11"
+  },
+  "devDependencies": {
+    "@react-native-community/eslint-config": "^2.0.0",
+    "@typescript-eslint/eslint-plugin": "^3.6.1",
+    "@typescript-eslint/parser": "^3.6.1",
+    "eslint": "^7.5.0",
+    "rimraf": "^3.0.2",
+    "typescript": "^3.9.7"
+  },
+  "peerDependencies": {
+    "react": "^16.13.1",
+    "react-native": "^0.63.1"
+  }
 }
