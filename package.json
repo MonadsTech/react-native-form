@@ -1,0 +1,8 @@
+{
+  "name": "@monadstech/react-native-form",
+  "version": "0.0.1",
+  "description": "React Native Form Library",
+  "main": "index.js",
+  "license": "MIT",
+  "private": false
+}
