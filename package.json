@@ -1,6 +1,6 @@
 {
   "name": "@monadstech/react-native-form",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "React Native Form Library",
   "keywords": [
     "React Native",
@@ -18,8 +18,7 @@
     "email": "vpankaj1998official@gmail.com"
   },
   "scripts": {
-    "build": "rimraf ./dist && tsc",
-    "prepublish": "yarn build"
+    "build": "rimraf ./dist && tsc"
   },
   "dependencies": {
     "@types/react": "^16.9.43",
