@@ -1,7 +1,7 @@
 {
   "name": "@monadstech/react-native-form",
   "version": "0.0.6",
-  "description": "React Native Form Library",
+  "description": "A Form Library for React Native",
   "keywords": [
     "React Native",
     "React Native Form",
@@ -21,14 +21,14 @@
     "build": "rimraf ./dist && tsc"
   },
   "dependencies": {
-    "@types/react": "^16.9.43",
-    "@types/react-native": "^0.63.1",
     "rc-form": "^2.4.11",
     "rc-util": "^5.0.5",
     "react": "^16.13.1",
     "react-native": "^0.63.1"
   },
   "devDependencies": {
+    "@types/react": "^16.9.43",
+    "@types/react-native": "^0.63.1",
     "@react-native-community/eslint-config": "^2.0.0",
     "@typescript-eslint/eslint-plugin": "^3.6.1",
     "@typescript-eslint/parser": "^3.6.1",
@@ -43,5 +43,13 @@
   "peerDependencies": {
     "react": "^16.13.1",
     "react-native": "^0.63.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MonadsTech/react-native-form"
+  },
+  "homepage": "https://github.com/MonadsTech/react-native-form#readme",
+  "bugs": {
+    "url": "https://github.com/MonadsTech/react-native-form/issues"
   }
 }
