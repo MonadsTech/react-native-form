@@ -2,7 +2,7 @@ import React from 'react';
 import {View, StyleSheet, Button, ViewStyle, StyleProp} from 'react-native';
 
 import {FormContext} from './context';
-import {FormInstance, Field} from './interface';
+import {FormInstance, Field, ValidateErrorEntity} from './interface';
 import {warning} from 'rc-util/lib/warning';
 
 const FORM_ACTIONS = {
@@ -11,19 +11,19 @@ const FORM_ACTIONS = {
   VALIDATE: 'VALIDATE',
 };
 
-interface defaultButtonProps {
+interface DefaultButtonProps {
   title: string;
   onPress(): void;
 }
 
-export interface ButtonNewProps extends defaultButtonProps {
+export interface ButtonNewProps extends DefaultButtonProps {
   fieldsValue?: unknown;
   form?: FormInstance;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 const DefaultButtonChild = React.forwardRef(
-  (props: defaultButtonProps, ref: any) => <Button {...props} ref={ref} />,
+  (props: DefaultButtonProps, ref: any) => <Button {...props} ref={ref} />,
 );
 
 export interface FormActionProps {
@@ -45,10 +45,10 @@ const FormAction = React.forwardRef((_props: FormActionProps, ref) => {
   } = _props;
   // const {rules, initialValue = '', validateFirst = false} = options;
 
-  const {form, onFinish} = React.useContext(FormContext);
+  const {form, onFinish, onFinishFailed} = React.useContext(FormContext);
 
   if (!form) {
-    throw new Error('Form.Item must be wrapped under Form component');
+    throw new Error('FormAction must be wrapped inside Form component');
   }
   // console.log('FormAction -> form', form);
 
@@ -60,10 +60,11 @@ const FormAction = React.forwardRef((_props: FormActionProps, ref) => {
 
   const onActionPress = React.useCallback(() => {
     if (action === FORM_ACTIONS.SUBMIT) {
-      form.validateFields((error: unknown, value: Field[]) => {
-        console.log(error, value);
+      form.validateFields((error: ValidateErrorEntity, value: Field[]) => {
         if (!error) {
           onFinish(value);
+        } else if (onFinishFailed) {
+          onFinishFailed(error);
         }
       });
     }

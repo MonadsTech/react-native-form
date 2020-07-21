@@ -19,11 +19,12 @@ const react_1 = __importDefault(require("react"));
 const react_native_1 = require("react-native");
 const context_1 = require("./context");
 const FormLabels_1 = require("./FormLabels");
-const MemoInput = react_1.default.memo((_a) => {
-    var { children } = _a, props = __rest(_a, ["children"]);
+const MemoComponent = react_1.default.forwardRef((_props, ref) => {
+    const { children } = _props, props = __rest(_props, ["children"]);
     const memoizedChild = react_1.default.cloneElement(children, props);
     return memoizedChild;
-}, (prev, next) => {
+});
+const MemoInput = react_1.default.memo(MemoComponent, (prev, next) => {
     return prev.value === next.value;
 });
 const FormItem = react_1.default.forwardRef((props, ref) => {

@@ -20,7 +20,7 @@ type RenderProps = (
 
 export interface FormProps extends Callbacks {
   name: string;
-  form?: FormInstance;
+  form: FormInstance;
   children?: RenderProps | React.ReactNode;
   vertical?: boolean;
   preserve?: boolean;
@@ -29,12 +29,7 @@ export interface FormProps extends Callbacks {
 
 // const FieldForm: React.ForwardRefRenderFunction<FormInstance, FormProps> = (
 
-const InternalFieldForm: React.ForwardRefRenderFunction<unknown, FormProps> = (
-  props: FormProps,
-  ref,
-) => {
-  // const {form, onFinish, containerStyle, children, ...restProps} = _props;
-
+const InternalForm = React.forwardRef((props: FormProps, ref: any) => {
   const {
     name,
     form,
@@ -68,16 +63,23 @@ const InternalFieldForm: React.ForwardRefRenderFunction<unknown, FormProps> = (
     ],
   );
 
-  // const [wrapForm] = useForm(form);
-  React.useImperativeHandle(ref, () => form);
+  React.useEffect(() => {
+    if (ref) {
+      ref(form);
+    }
+  }, [form]);
 
   return (
     <FormContext.Provider value={formContextValue}>
       <View {...restProps}>{children}</View>
     </FormContext.Provider>
   );
-};
+});
 
-const Form = createForm()(React.forwardRef(InternalFieldForm));
+const EnhancedForm = createForm()(InternalForm);
+
+const Form = React.forwardRef((props, ref) => {
+  return <EnhancedForm wrappedComponentRef={ref} {...props} />;
+});
 
 export {Form};

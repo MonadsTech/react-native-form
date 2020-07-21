@@ -99,6 +99,12 @@ export interface FieldEntity {
     initialValue?: unknown;
   };
 }
+
+export interface FieldError {
+  name: InternalFieldNamePath;
+  errors: string[];
+}
+
 export type ValidateFields = (error?: any, value?: any) => Promise<Field>;
 
 export interface FormInstance {
@@ -107,21 +113,21 @@ export interface FormInstance {
     name: FieldNamePath,
     options: FormItemOptions,
   ) => (_baseChild: React.ReactNode) => React.ReactNode;
-  // getFieldValue: (name: FieldNamePath) => FieldValue;
+  getFieldValue: (name: FieldNamePath) => FieldValue;
   getFieldsValue: (
     nameList?: FieldNamePath[] | true,
     filterFunc?: (meta: FieldMeta) => boolean,
   ) => Field;
   getFieldError: (name: FieldNamePath) => string[];
-  // getFieldsError: (nameList?: FieldNamePath[]) => FieldError[];
-  // isFieldsTouched(
-  //   nameList?: FieldNamePath[],
-  //   allFieldsTouched?: boolean,
-  // ): boolean;
-  // isFieldsTouched(allFieldsTouched?: boolean): boolean;
-  // isFieldTouched: (name: FieldNamePath) => boolean;
-  // isFieldValidating: (name: FieldNamePath) => boolean;
-  // isFieldsValidating: (nameList: FieldNamePath[]) => boolean;
+  getFieldsError: (nameList?: FieldNamePath[]) => FieldError[];
+  isFieldsTouched(
+    nameList?: FieldNamePath[],
+    allFieldsTouched?: boolean,
+  ): boolean;
+  isFieldsTouched(allFieldsTouched?: boolean): boolean;
+  isFieldTouched: (name: FieldNamePath) => boolean;
+  isFieldValidating: (name: FieldNamePath) => boolean;
+  isFieldsValidating: (nameList: FieldNamePath[]) => boolean;
   resetFields: (fields?: FieldNamePath[]) => void;
   setFields?: (fields: FieldData[]) => void;
   setFieldsValue?: (value: Field) => void;

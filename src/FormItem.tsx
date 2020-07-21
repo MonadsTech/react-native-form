@@ -16,15 +16,15 @@ interface MemoInputProps {
   children: React.ReactNode;
 }
 
-const MemoInput = React.memo(
-  ({children, ...props}: MemoInputProps) => {
-    const memoizedChild = React.cloneElement(children as JSX.Element, props);
-    return memoizedChild;
-  },
-  (prev, next) => {
-    return prev.value === next.value;
-  },
-);
+const MemoComponent = React.forwardRef((_props: MemoInputProps, ref) => {
+  const {children, ...props} = _props;
+  const memoizedChild = React.cloneElement(children as JSX.Element, props);
+  return memoizedChild;
+});
+
+const MemoInput = React.memo(MemoComponent, (prev, next) => {
+  return prev.value === next.value;
+});
 
 export interface FormItemProps {
   children: React.ReactNode;

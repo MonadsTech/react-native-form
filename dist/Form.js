@@ -20,8 +20,7 @@ const react_native_1 = require("react-native");
 const rc_form_1 = require("rc-form");
 const context_1 = require("./context");
 // const FieldForm: React.ForwardRefRenderFunction<FormInstance, FormProps> = (
-const InternalFieldForm = (props, ref) => {
-    // const {form, onFinish, containerStyle, children, ...restProps} = _props;
+const InternalForm = react_1.default.forwardRef((props, ref) => {
     const { name, form, preserve, onValuesChange, onFieldsChange, onFinish, onFinishFailed, children } = props, restProps = __rest(props, ["name", "form", "preserve", "onValuesChange", "onFieldsChange", "onFinish", "onFinishFailed", "children"]);
     const formContextValue = react_1.default.useMemo(() => ({
         name,
@@ -40,10 +39,16 @@ const InternalFieldForm = (props, ref) => {
         onFinishFailed,
         onValuesChange,
     ]);
-    // const [wrapForm] = useForm(form);
-    react_1.default.useImperativeHandle(ref, () => form);
+    react_1.default.useEffect(() => {
+        if (ref) {
+            ref(form);
+        }
+    }, [form]);
     return (react_1.default.createElement(context_1.FormContext.Provider, { value: formContextValue },
         react_1.default.createElement(react_native_1.View, Object.assign({}, restProps), children)));
-};
-const Form = rc_form_1.createForm()(react_1.default.forwardRef(InternalFieldForm));
+});
+const EnhancedForm = rc_form_1.createForm()(InternalForm);
+const Form = react_1.default.forwardRef((props, ref) => {
+    return react_1.default.createElement(EnhancedForm, Object.assign({ wrappedComponentRef: ref }, props));
+});
 exports.Form = Form;

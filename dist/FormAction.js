@@ -30,9 +30,9 @@ const DefaultButtonChild = react_1.default.forwardRef((props, ref) => react_1.de
 const FormAction = react_1.default.forwardRef((_props, ref) => {
     const { action = FORM_ACTIONS.SUBMIT, title = 'Submit', containerStyle, children, onFormUpdate } = _props, props = __rest(_props, ["action", "title", "containerStyle", "children", "onFormUpdate"]);
     // const {rules, initialValue = '', validateFirst = false} = options;
-    const { form, onFinish } = react_1.default.useContext(context_1.FormContext);
+    const { form, onFinish, onFinishFailed } = react_1.default.useContext(context_1.FormContext);
     if (!form) {
-        throw new Error('Form.Item must be wrapped under Form component');
+        throw new Error('FormAction must be wrapped inside Form component');
     }
     // console.log('FormAction -> form', form);
     react_1.default.useEffect(() => {
@@ -43,9 +43,11 @@ const FormAction = react_1.default.forwardRef((_props, ref) => {
     const onActionPress = react_1.default.useCallback(() => {
         if (action === FORM_ACTIONS.SUBMIT) {
             form.validateFields((error, value) => {
-                console.log(error, value);
                 if (!error) {
                     onFinish(value);
+                }
+                else if (onFinishFailed) {
+                    onFinishFailed(error);
                 }
             });
         }
