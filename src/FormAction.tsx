@@ -30,7 +30,7 @@ export interface FormActionProps {
   action: string | undefined;
   children: React.ReactNode;
   title: string;
-  containerStyle?: StyleProp<ViewStyle>;
+  style?: StyleProp<ViewStyle>;
   onFormUpdate(form: FormInstance | undefined): void;
 }
 
@@ -38,7 +38,7 @@ const FormAction = React.forwardRef((_props: FormActionProps, ref) => {
   const {
     action = FORM_ACTIONS.SUBMIT,
     title = 'Submit',
-    containerStyle,
+    style,
     children,
     onFormUpdate,
     ...props
@@ -74,7 +74,7 @@ const FormAction = React.forwardRef((_props: FormActionProps, ref) => {
     if (action === FORM_ACTIONS.RESET) {
       form.resetFields();
     }
-  }, [action, form, onFinish]);
+  }, [action, form, onFinish, onFinishFailed]);
 
   const _baseChildOriginal: JSX.Element = React.useMemo((): JSX.Element => {
     if (React.Children.count(children) > 1) {
@@ -109,20 +109,7 @@ const FormAction = React.forwardRef((_props: FormActionProps, ref) => {
     return React.cloneElement(_baseChildOriginal, newProps);
   }, [_baseChildOriginal, form, onActionPress, props, title]);
 
-  return (
-    <View style={containerStyle ? containerStyle : styles.container}>
-      {baseChild}
-    </View>
-  );
+  return <View style={style}>{baseChild}</View>;
 });
 
 export {FormAction, FORM_ACTIONS};
-
-const styles = StyleSheet.create({
-  container: {
-    margin: 10,
-    marginVertical: 15,
-    paddingHorizontal: 10,
-  },
-  buttons: {},
-});

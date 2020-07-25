@@ -22,6 +22,7 @@ const context_1 = require("./context");
 // const FieldForm: React.ForwardRefRenderFunction<FormInstance, FormProps> = (
 const InternalForm = react_1.default.forwardRef((props, ref) => {
     const { name, form, preserve, onValuesChange, onFieldsChange, onFinish, onFinishFailed, children } = props, restProps = __rest(props, ["name", "form", "preserve", "onValuesChange", "onFieldsChange", "onFinish", "onFinishFailed", "children"]);
+    console.log('Form render');
     const formContextValue = react_1.default.useMemo(() => ({
         name,
         form,
