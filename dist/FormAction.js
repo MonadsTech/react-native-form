@@ -28,7 +28,7 @@ exports.FORM_ACTIONS = FORM_ACTIONS;
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 const DefaultButtonChild = react_1.default.forwardRef((props, ref) => react_1.default.createElement(react_native_1.Button, Object.assign({}, props, { ref: ref })));
 const FormAction = react_1.default.forwardRef((_props, ref) => {
-    const { action = FORM_ACTIONS.SUBMIT, title = 'Submit', containerStyle, children, onFormUpdate } = _props, props = __rest(_props, ["action", "title", "containerStyle", "children", "onFormUpdate"]);
+    const { action = FORM_ACTIONS.SUBMIT, title = 'Submit', style, children, onFormUpdate } = _props, props = __rest(_props, ["action", "title", "style", "children", "onFormUpdate"]);
     // const {rules, initialValue = '', validateFirst = false} = options;
     const { form, onFinish, onFinishFailed } = react_1.default.useContext(context_1.FormContext);
     if (!form) {
@@ -57,7 +57,7 @@ const FormAction = react_1.default.forwardRef((_props, ref) => {
         if (action === FORM_ACTIONS.RESET) {
             form.resetFields();
         }
-    }, [action, form, onFinish]);
+    }, [action, form, onFinish, onFinishFailed]);
     const _baseChildOriginal = react_1.default.useMemo(() => {
         if (react_1.default.Children.count(children) > 1) {
             warning_1.warning(false, 'FormAction accepts only one child');
@@ -77,14 +77,6 @@ const FormAction = react_1.default.forwardRef((_props, ref) => {
         }
         return react_1.default.cloneElement(_baseChildOriginal, newProps);
     }, [_baseChildOriginal, form, onActionPress, props, title]);
-    return (react_1.default.createElement(react_native_1.View, { style: containerStyle ? containerStyle : styles.container }, baseChild));
+    return react_1.default.createElement(react_native_1.View, { style: style }, baseChild);
 });
 exports.FormAction = FormAction;
-const styles = react_native_1.StyleSheet.create({
-    container: {
-        margin: 10,
-        marginVertical: 15,
-        paddingHorizontal: 10,
-    },
-    buttons: {},
-});

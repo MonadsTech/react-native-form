@@ -1,6 +1,6 @@
 {
   "name": "@monadstech/react-native-form",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "A Form Library for React Native",
   "keywords": [
     "React Native",
@@ -18,7 +18,9 @@
     "email": "vpankaj1998official@gmail.com"
   },
   "scripts": {
-    "build": "rimraf ./dist && tsc"
+    "b": " tsc",
+    "build": "rimraf ./dist && tsc",
+    "watch": "tsc --watch"
   },
   "dependencies": {
     "rc-form": "^2.4.11",
