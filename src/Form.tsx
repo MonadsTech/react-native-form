@@ -42,6 +42,8 @@ const InternalForm = React.forwardRef((props: FormProps, ref: any) => {
     ...restProps
   }: FormProps = props;
 
+  console.log('Form render');
+
   const formContextValue: FormContextProps = React.useMemo(
     () => ({
       name,

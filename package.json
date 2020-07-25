@@ -18,7 +18,9 @@
     "email": "vpankaj1998official@gmail.com"
   },
   "scripts": {
-    "build": "rimraf ./dist && tsc"
+    "b": " tsc",
+    "build": "rimraf ./dist && tsc",
+    "watch": "tsc --watch"
   },
   "dependencies": {
     "rc-form": "^2.4.11",
