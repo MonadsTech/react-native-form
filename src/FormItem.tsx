@@ -14,6 +14,7 @@ import {
 interface MemoInputProps {
   value?: unknown;
   children: React.ReactNode;
+  shouldUpdate?(a: unknown, b: unknown): boolean;
 }
 
 const MemoComponent = React.forwardRef((_props: MemoInputProps, ref) => {
@@ -23,6 +24,13 @@ const MemoComponent = React.forwardRef((_props: MemoInputProps, ref) => {
 });
 
 const MemoInput = React.memo(MemoComponent, (prev, next) => {
+  if (next.shouldUpdate) {
+    const update = next.shouldUpdate(prev, next);
+    if (update) {
+      return false;
+    }
+  }
+
   return prev.value === next.value;
 });
 
@@ -35,6 +43,8 @@ export interface FormItemProps {
   LabelComponent?: React.ComponentClass;
   ErrorComponent?: React.ComponentClass;
   containerStyle?: StyleProp<ViewStyle>;
+  shouldUpdate?(a: unknown, b: unknown): boolean;
+  showMultiErrors: boolean;
 }
 
 const FormItem = React.forwardRef((props: FormItemProps, ref) => {
@@ -46,6 +56,8 @@ const FormItem = React.forwardRef((props: FormItemProps, ref) => {
     ErrorComponent = FormErrorLabel,
     containerStyle,
     children,
+    shouldUpdate,
+    showMultiErrors,
   } = props;
 
   const {form} = React.useContext(FormContext);
@@ -68,7 +80,7 @@ const FormItem = React.forwardRef((props: FormItemProps, ref) => {
 
   function renderChild(_baseChild: React.ReactNode): React.ReactNode {
     return (
-      <MemoInput>
+      <MemoInput shouldUpdate={shouldUpdate}>
         {React.cloneElement(_baseChild as JSX.Element, {
           // error,
         })}
@@ -86,7 +98,7 @@ const FormItem = React.forwardRef((props: FormItemProps, ref) => {
         name,
         options || {},
       )(renderChild(_baseChildOriginal))}
-      <ErrorComponent error={error} />
+      <ErrorComponent error={error} showMultiErrors={showMultiErrors} />
     </View>
   );
 });

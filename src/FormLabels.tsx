@@ -12,6 +12,7 @@ type errorObject = string[] | any;
 interface ErrorProps {
   error: errorObject;
   errorStyle?: StyleProp<ViewStyle>;
+  showMultiErrors: boolean;
 }
 
 const FormLabel = React.forwardRef((_props: LabelProps, ref) => {
@@ -28,10 +29,11 @@ const FormLabel = React.forwardRef((_props: LabelProps, ref) => {
 });
 
 const FormErrorLabel = React.forwardRef((_props: ErrorProps, ref) => {
-  const {error, errorStyle, ...props} = _props;
+  const {error, errorStyle, showMultiErrors, ...props} = _props;
 
   if (error) {
-    return error.map((info: string) => {
+    const errors = showMultiErrors ? error : [error[0]];
+    return errors.map((info: string) => {
       return (
         <Text
           style={[
@@ -63,6 +65,7 @@ const styles = StyleSheet.create({
     color: 'rgba(18,18,18,0.6)',
     fontSize: 12,
     lineHeight: 14,
+    // marginBottom: 5,
   },
   errorView: {},
   errorInfoText: {

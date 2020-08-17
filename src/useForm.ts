@@ -1,12 +1,18 @@
-// import React from 'react';
+import React from 'react';
 
-// import {FormContext, FormContextProps} from './context';
-// import {
-//   Field,
-//   FormInstance,
-//   Callbacks,
-//   // InternalFormInstance,
-// } from './interface';
+import {FormContext, FormContextProps} from './context';
+import {
+  Field,
+  FormInstance,
+  Callbacks,
+  // InternalFormInstance,
+} from './interface';
+
+export const useForm = (): FormContextProps => {
+  const formContext = React.useContext(FormContext);
+
+  return formContext;
+};
 
 // function useForm(form?: FormInstance): [FormInstance] {
 //   // const [rcForm] = useRcForm();
