@@ -64,13 +64,13 @@ const styles = StyleSheet.create({
   labelText: {
     color: 'rgba(18,18,18,0.6)',
     fontSize: 12,
-    lineHeight: 14,
+    lineHeight: 14
     // marginBottom: 5,
   },
   errorView: {},
   errorInfoText: {
     color: 'red',
-    // margin: 10,
+    margin: 10,
     textAlign: 'left',
     fontSize: 12,
     lineHeight: 14,

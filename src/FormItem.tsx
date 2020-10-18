@@ -79,13 +79,14 @@ const FormItem = React.forwardRef((props: FormItemProps, ref) => {
   }, [children]);
 
   function renderChild(_baseChild: React.ReactNode): React.ReactNode {
-    return (
-      <MemoInput shouldUpdate={shouldUpdate}>
-        {React.cloneElement(_baseChild as JSX.Element, {
-          // error,
-        })}
-      </MemoInput>
-    );
+    return _baseChild;
+    // return (
+    //   <MemoInput shouldUpdate={shouldUpdate}>
+    //     {React.cloneElement(_baseChild as JSX.Element, {
+    //       // error,
+    //     })}
+    //   </MemoInput>
+    // );
   }
 
   return (
